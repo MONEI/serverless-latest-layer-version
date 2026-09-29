@@ -1,11 +1,14 @@
-name: CI
+name: Publish
 on:
-  push:
-    branches: [master]
-  pull_request:
+  release:
+    types: [published]
+
+permissions:
+  id-token: write
+  contents: read
 
 jobs:
-  test:
+  publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -14,3 +17,4 @@ jobs:
           node-version: '24.x'
       - run: npm ci
       - run: npm test
+      - run: npm publish
